@@ -29,7 +29,7 @@ technologies = [
     "Spark",
     "Flink",
     "AI",
-    "GPT",
+    "ChatGPT",
     "ML",
     "Pandas",
     "NumPy",
