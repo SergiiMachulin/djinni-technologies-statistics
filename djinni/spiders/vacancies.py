@@ -42,6 +42,8 @@ class VacanciesSpider(scrapy.Spider):
         vacancy.update(VacanciesSpider.parse_salary(response))
         vacancy.update(VacanciesSpider.parse_technologies(response))
         vacancy.update(VacanciesSpider.parse_location(response))
+        vacancy.update(VacanciesSpider.parse_views(response))
+        vacancy.update(VacanciesSpider.parse_applicants(response))
 
         yield vacancy
 
@@ -112,3 +114,23 @@ class VacanciesSpider(scrapy.Spider):
         ]
 
         return {"location": locations}
+
+    @staticmethod
+    def parse_views(response: Response) -> dict[str, int]:
+        text = response.css(
+            "div.profile-page-section.text-small"
+        ).extract_first()
+        views_match = re.search(r"(\d+) перегляд", text)
+        views_count = int(views_match.group(1)) if views_match else 0
+
+        return {"views": views_count}
+
+    @staticmethod
+    def parse_applicants(response: Response) -> dict[str, int]:
+        text = response.css("div.profile-page-section.text-small").get()
+        applicants_match = re.search(r"(\d+) відгук", text)
+        applicants_count = (
+            int(applicants_match.group(1)) if applicants_match else 0
+        )
+
+        return {"applicants": applicants_count}
