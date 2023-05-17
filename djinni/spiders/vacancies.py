@@ -75,8 +75,31 @@ class VacanciesSpider(scrapy.Spider):
         return {"company_type": company_type}
 
     @staticmethod
-    def parse_salary(response: Response) -> dict[str, str]:
-        return {"salary": response.css(".public-salary-item::text").get()}
+    def parse_salary(response: Response) -> dict[str, int]:
+        salary_text = response.css(".public-salary-item::text").get()
+
+        if salary_text:
+            salary_text = salary_text.strip().replace("$", "").replace(",", "")
+
+            if "від" in salary_text or "до" in salary_text:
+                salary_min = int(
+                    salary_text.replace("від", "").replace("до", "").strip()
+                )
+                salary_avg = salary_min
+            elif "-" in salary_text:
+                salary_parts = salary_text.split("-")
+                salary_min = int(salary_parts[0])
+                salary_max = int(salary_parts[1])
+                salary_avg = (salary_min + salary_max) // 2
+            else:
+                salary_avg = int(salary_text)
+        else:
+            salary_avg = None
+
+        if salary_avg and salary_avg < 100:
+            salary_avg *= 160
+
+        return {"salary": salary_avg}
 
     @staticmethod
     def parse_technologies(response: Response) -> dict[str, list]:
