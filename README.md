@@ -24,37 +24,39 @@ It processes files containing information about job vacancies, such as the title
    python -m venv venv
    ```
 3. Activate the virtual environment: 
+
+   on ```macOS``` or ```Linux```
    ```bash 
-   source env/bin/activate(on unixOS)
-   ```  
-   ```bash
-   env\Scripts\activate (on Windows)
+   source env/bin/activate
    ```
+   on ```Windows```
+   ```bash
+   env\Scripts\activate 
+   ```
+
 4.  Install the required dependencies:
    ```bash
    pip install -r requirements.txt
    ```
-5. Prepare the data:
-
-   ```bash
-   scrapy crawl vacancies -o vacancies_all.jl && scrapy crawl vacancies -o vacancies_junior.jl -a experience=no_exp && scrapy crawl vacancies -o vacancies_junior.jl -a experience=1y && scrapy crawl vacancies -o vacancies_middle.jl -a experience=3y && scrapy crawl vacancies -o senior.jl -a experience=5y
-   ```
 
 ## Usage
 
-1. Run the application:
+1. Run the application to make scrapping (by default scrapping provided for ```Python``` direction; to change direction - change it in djinni/spider/vacancies.py by setting new ```DIRECTION``` value):
 
    ```bash
    python app.py
    ```
 
-2. The application will generate various visualizations and insights based on the job vacancies data.
+2. Then generate visualizations and insights based on the job vacancies data:
+
+   ```bash
+   nbtb run -n vacancies_analysis.ipynb
+   ```
 
 3. The generated plots will be saved in the `archive_{DIRECTION}` directory, which includes subdirectories for each type of visualization.
 
-
-
-
-
+## Examples of plots:
 
 ![Image](demo.png)
+
+![Image](demo_2.png)
