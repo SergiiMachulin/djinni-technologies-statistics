@@ -23,6 +23,7 @@ cycler==0.11.0
 debugpy==1.6.7
 decorator==5.1.1
 defusedxml==0.7.1
+entrypoints==0.4
 executing==1.2.0
 fastjsonschema==2.16.3
 filelock==3.12.0
@@ -65,12 +66,13 @@ nbclassic==1.0.0
 nbclient==0.7.4
 nbconvert==7.4.0
 nbformat==5.8.0
+nbtoolbelt==2022.4
 nest-asyncio==1.5.6
 notebook==6.5.4
 notebook_shim==0.2.3
 numpy==1.24.3
 packaging==23.1
-pandas==2.0.1
+pandas==1.5.3
 pandocfilters==1.5.0
 parsel==1.8.1
 parso==0.8.3
