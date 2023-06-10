@@ -95,7 +95,7 @@ class VacanciesSpider(scrapy.Spider):
                 salary_avg = int(salary_text)
         else:
             salary_avg = None
-
+        # Catch hour rate salary and make it monthly
         if salary_avg and salary_avg < 100:
             salary_avg *= 160
 
